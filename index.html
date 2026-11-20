@@ -1,33 +1,182 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>스킵피티 · 준비 중 · BMR APPS</title>
-<meta name="description" content="스킵피티 — 준비 중인 페이지입니다 (BMR APPS)">
-<meta name="theme-color" content="#0abbee">
+<title>스킵피티 · 점프 보드게임 · BMR APPS</title>
+<meta name="description" content="스킵피티 — 10×10 판에서 칩을 뛰어넘어 5가지 색 세트를 모으는 보드게임. 로컬 2~4인 대전과 AI 대전을 지원합니다.">
+<meta name="theme-color" content="#f4efe1">
+<meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
 <link rel="icon" href="https://wjvqavianqceeyyxonfg.supabase.co/functions/v1/hub-favicon?slug=skippity">
 </head>
 <body>
-<!-- 준비 중 안내 페이지입니다. 앱을 만들면 이 파일(index.html)을 내 앱 화면으로 바꾸세요.
-     개발에 필요한 정보는 BMR APPS 허브의 '내 서비스 정보 → 개발 정보'와 저장소 README.md 에 있습니다. -->
+<a class="skip" href="#main">본문으로 바로 가기</a>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="glyph-0" viewBox="0 0 10 10"><circle cx="5" cy="5" r="3.15"/></symbol>
+    <symbol id="glyph-1" viewBox="0 0 10 10"><path d="M5 1.5 9 8.4H1z"/></symbol>
+    <symbol id="glyph-2" viewBox="0 0 10 10"><path d="M5 .7 9.3 5 5 9.3.7 5z"/></symbol>
+    <symbol id="glyph-3" viewBox="0 0 10 10"><rect x="1.7" y="1.7" width="6.6" height="6.6" rx="1.1"/></symbol>
+    <symbol id="glyph-4" viewBox="0 0 10 10"><path d="M5 .6l1.35 2.85 3.1.4-2.28 2.13.6 3.08L5 7.53 2.23 9.06l.6-3.08L.55 3.85l3.1-.4z"/></symbol>
+  </defs>
+</svg>
+
 <header class="top">
-  <a class="mark" href="https://bmrgoodway.github.io/" aria-label="BMR APPS 메인 화면"><span>BMR</span><span>APPS</span></a>
+  <a class="mark" href="./" aria-label="스킵피티 홈">
+    <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="12" r="7" fill="#ffdc1a" stroke="#111" stroke-width="2.4"/>
+      <circle cx="36" cy="12" r="7" fill="#ff614a" stroke="#111" stroke-width="2.4"/>
+      <circle cx="12" cy="36" r="7" fill="#0abbee" stroke="#111" stroke-width="2.4"/>
+      <circle cx="36" cy="36" r="7" fill="#02c245" stroke="#111" stroke-width="2.4"/>
+      <circle cx="24" cy="24" r="7.5" fill="#7e65c1" stroke="#111" stroke-width="2.4"/>
+    </svg>
+  </a>
+  <div class="brand">
+    <b>스킵피티</b>
+    <small>SKIPPITY · 점프 보드게임</small>
+  </div>
+  <div class="top-actions">
+    <button type="button" class="btn small" id="btn-rules">? 규칙</button>
+    <button type="button" class="icon-btn" id="btn-theme" aria-label="어두운 화면으로 바꾸기" title="화면 밝기">
+      <span id="theme-mark" aria-hidden="true">◐</span>
+    </button>
+    <button type="button" class="btn small primary" id="btn-new" hidden>새 게임</button>
+  </div>
 </header>
-<main class="wrap">
-  <section class="hero">
-    <div class="copy">
-      <span class="eyebrow">준비 중</span>
-      <h1 data-app-name>스킵피티</h1>
-      <p class="desc" data-app-desc hidden></p>
-      <p class="notice"><b>준비 중인 페이지입니다.</b> 곧 이 주소에서 서비스를 열 예정이에요.</p>
-      <a class="btn" href="https://bmrgoodway.github.io/">BMR APPS 서비스 둘러보기</a>
+
+<main id="main">
+
+  <!-- 설정 화면 -->
+  <section class="screen" id="screen-setup">
+    <div class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">5색 칩 · 점프 · 세트</span>
+        <h1>스킵피티</h1>
+        <p class="lede">10×10 판에서 칩을 뛰어넘어 모으세요. <b>5가지 색을 하나씩</b> 모으면 세트 1개, 세트가 가장 많은 사람이 이깁니다.</p>
+        <ul class="hero-tags">
+          <li>로그인 없이 바로</li>
+          <li>2~4인 로컬</li>
+          <li>AI 대전</li>
+        </ul>
+      </div>
+      <div class="hero-art" id="hero-art" aria-hidden="true"></div>
     </div>
-    <div class="art" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i><i class="d"></i><i class="e"></i><i class="f"></i></div>
+
+    <div class="setup-grid">
+      <div class="card setup-card">
+        <h2>어떻게 즐길까요?</h2>
+        <div class="seg" id="mode-seg" role="group" aria-label="게임 방식">
+          <button type="button" class="seg-btn on" data-mode="local">같이 하기<small>2~4명 한 화면</small></button>
+          <button type="button" class="seg-btn" data-mode="ai">AI와 대전<small>혼자서도</small></button>
+        </div>
+
+        <div class="setup-block" id="block-local">
+          <div class="field">
+            <span class="label">인원</span>
+            <div class="pills" id="count-pills" role="group" aria-label="인원">
+              <button type="button" class="pill on" data-count="2">2명</button>
+              <button type="button" class="pill" data-count="3">3명</button>
+              <button type="button" class="pill" data-count="4">4명</button>
+            </div>
+          </div>
+          <div class="names" id="local-names"></div>
+        </div>
+
+        <div class="setup-block" id="block-ai" hidden>
+          <div class="field">
+            <span class="label">내 이름</span>
+            <input class="input" id="my-name" maxlength="10" placeholder="나" autocomplete="off">
+          </div>
+          <div class="field">
+            <span class="label">AI 인원</span>
+            <div class="pills" id="ai-pills" role="group" aria-label="AI 인원">
+              <button type="button" class="pill on" data-count="1">1명</button>
+              <button type="button" class="pill" data-count="2">2명</button>
+              <button type="button" class="pill" data-count="3">3명</button>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label">난이도</span>
+            <div class="pills" id="level-pills" role="group" aria-label="AI 난이도">
+              <button type="button" class="pill" data-level="easy">쉬움</button>
+              <button type="button" class="pill on" data-level="normal">보통</button>
+              <button type="button" class="pill" data-level="hard">어려움</button>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn big primary start" id="btn-start">게임 시작</button>
+      </div>
+
+      <div class="card how-card">
+        <h2>이렇게 노세요</h2>
+        <ol class="steps">
+          <li><b>1</b><div><strong>칩을 고르고</strong><span>뛸 수 있는 칩을 누르면 합법 칸이 점선으로 보여요.</span></div></li>
+          <li><b>2</b><div><strong>뛰어넘어 획득</strong><span>상하좌우 이웃 칩 하나를 넘어 바로 뒤 빈칸에 착지. 넘은 칩은 내 것!</span></div></li>
+          <li><b>3</b><div><strong>세트를 모아요</strong><span>5색을 하나씩 모으면 세트 1개. 더 뛸 곳이 없으면 게임 끝.</span></div></li>
+        </ol>
+        <p class="note">대각선은 안 됩니다. 방금 움직인 칩으로는 방향을 바꿔 연속 점프할 수 있어요.</p>
+      </div>
+    </div>
   </section>
+
+  <!-- 게임 화면 -->
+  <section class="screen" id="screen-game" hidden>
+    <div class="play">
+      <aside class="col players-col">
+        <div class="col-head">
+          <h2>플레이어</h2>
+          <span class="muted" id="turn-count"></span>
+        </div>
+        <div class="players" id="players"></div>
+      </aside>
+
+      <section class="col board-col">
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+        <div class="board-wrap">
+          <div class="board" id="board" role="grid" aria-label="10 곱하기 10 스킵피티 보드"></div>
+        </div>
+        <div class="board-bar">
+          <button type="button" class="btn end" id="btn-end" disabled>턴 마치기</button>
+          <span class="hintline" id="hintline">점선 원이 착지할 수 있는 칸이에요</span>
+        </div>
+      </section>
+
+      <aside class="col side-col">
+        <div class="card log-card">
+          <h3>최근 점프</h3>
+          <ol class="log" id="log"><li class="empty-log">아직 점프가 없어요</li></ol>
+        </div>
+        <div class="card tip-card">
+          <h3>잊지 마세요</h3>
+          <p>더 뛰고 싶지 않으면 <b>턴 마치기</b>. 더 뛸 칸이 없으면 자동으로 차례가 넘어갑니다.</p>
+          <button type="button" class="btn small" id="btn-rules-2">규칙 자세히</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <noscript><p class="noscript">이 게임은 자바스크립트가 필요합니다. 브라우저에서 자바스크립트를 켜 주세요.</p></noscript>
 </main>
-<footer class="foot">별무리 개발자들이 함께 만들고 나누는 공간 · <a href="https://bmrgoodway.github.io/">BMR APPS</a></footer>
+
+<footer class="foot">
+  별무리 개발자들이 함께 만들고 나누는 공간 · <a href="https://bmrgoodway.github.io/">BMR APPS</a>
+</footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-back" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <header class="modal-head">
+      <h2 id="modal-title">규칙</h2>
+      <button type="button" class="icon-btn" data-close aria-label="닫기">✕</button>
+    </header>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot" id="modal-foot"></div>
+  </div>
+</div>
+
 <script type="module" src="/src/main.js"></script>
 </body>
 </html>
