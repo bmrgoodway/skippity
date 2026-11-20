@@ -1,0 +1,12 @@
+{
+  "slug": "skippity",
+  "name": "스킵피티",
+  "schema": "skippity",
+  "db_role": "skippity_dev",
+  "bucket": "skippity",
+  "function": "skippity-fn",
+  "secret_prefix": "SKIPPITY_",
+  "supabase_ref": "wjvqavianqceeyyxonfg",
+  "url": "https://bmrgoodway.github.io/skippity/",
+  "template": "bmr-app-templates v2"
+}
